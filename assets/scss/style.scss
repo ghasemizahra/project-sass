@@ -1,0 +1,874 @@
+@import "variable";
+@import "mixin";
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300&display=swap");
+body {
+  margin: 0;
+  font-size: 14px;
+  position: relative;
+  // font-family: "Playfair Display", serif !important;
+  font-family: "Source Sans Pro", sans-serif !important;
+  background-color: map-get($colorPalette, bgbody);
+}
+
+// header & navbar style
+.navbar {
+  position: absolute;
+  z-index: 20;
+  width: 100vw;
+  height: 15vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: 600;
+  background-color: map-get($colorPalette, blackTransparent);
+  color: map-get($colorPalette, whiteText);
+  box-sizing: border-box;
+  right: 0px;
+  .logo {
+    width: 6rem;
+    margin: 1.5rem 2rem;
+  }
+  .navMenu ul {
+    display: flex;
+    list-style: none;
+    position: relative;
+    li {
+      padding: 0 20px;
+    }
+    .subMenu {
+      position: absolute;
+      display: none;
+      background-color: map-get($colorPalette, bgBlack);
+      width: 18%;
+      font-size: 12px;
+      padding-left: 0 !important;
+      margin: 10px 0px;
+      li {
+        margin: 10px 0px;
+      }
+      a {
+        text-decoration: none;
+        color: #fff;
+        margin-top: 5px;
+      }
+    }
+    #submenu2{
+      width: 25%;
+    }
+  }
+  .navLeftItems {
+    display: flex;
+    padding-right: 30px;
+    .bookBtn {
+      border: none;
+      text-transform: uppercase;
+      background-color: map-get($colorPalette, bookBtn);
+      color: map-get($colorPalette, whiteText);
+      padding: 11px 20px;
+      @include before-sweeping(map-get($colorPalette, bookBtn));
+      &:before {
+        content: "";
+        @include sweeping(map-get($colorPalette, whiteText));
+      }
+      &:hover {
+        color: map-get($colorPalette, bookBtn);
+      }
+      &:hover:before {
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+      }
+    }
+    .threeLine {
+      margin-right: 0vw;
+    }
+    .cols {
+      display: flex;
+      align-items: center;
+      &:first-of-type {
+        margin-left: 4rem;
+      }
+    }
+    .hamburger {
+      margin-left: 1rem;
+      &:hover {
+        cursor: pointer;
+      }
+      .line {
+        background-color: map-get($colorPalette, whiteText);
+        width: 20px;
+        height: 1px;
+        margin: 5px 0;
+        display: block;
+        transition: 0.5s;
+        transform-origin: left;
+      }
+    }
+    hamburger .line {
+      width: 50px;
+      height: 5px;
+      background-color: map-get($colorPalette, hamburgerLines);
+      display: block;
+      margin: 8px auto;
+      -webkit-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out;
+    }
+    #hamburger.is-active .line:nth-child(1) {
+      -webkit-transform: translateY(13px) rotate(-45deg);
+      -ms-transform: translateY(13px) rotate(-45deg);
+      transform: translateY(13px) rotate(-45deg);
+    }
+    #hamburger.is-active .line:nth-child(2) {
+      opacity: 0;
+    }
+    #hamburger.is-active .line:nth-child(3) {
+      -webkit-transform: translateY(-13px) rotate(45deg);
+      -ms-transform: translateY(-13px) rotate(45deg);
+      transform: translateY(-13px) rotate(45deg);
+    }
+  }
+}
+
+// underline hover
+.linkTransition {
+  cursor: pointer;
+  &::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 1px;
+    margin-top: 4px;
+    background: map-get($colorPalette, requestBtn);
+    transition: width 0.3s;
+  }
+  &:hover::after {
+    width: 100%;
+  }
+}
+// drawer menu
+.drawerMenu {
+  position: fixed;
+  overflow: auto;
+  right: 0;
+  background-color: map-get($colorPalette, bgBlack);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  width: 0vw;
+  padding-top: 110px;
+  line-height: 30px;
+  .drawerContents {
+    padding-left: 20px;
+    font-weight: 600;
+    & > a {
+      text-transform: uppercase;
+      color: map-get($colorPalette, whiteText);
+      text-decoration: none;
+      font-size: 16px;
+    }
+    .drawerParagraph {
+      border-top: 1px solid map-get($colorPalette, whiteText);
+      color: map-get($colorPalette, whiteText);
+      padding-top: 40px;
+      padding-left: 20px;
+      margin-top: 35px;
+      width: 90%;
+      font-weight: 300;
+    }
+    .fa-phone {
+      color: map-get($colorPalette, whiteText);
+      font-size: 20px;
+    }
+  }
+  .hasBorder {
+    display: flex;
+    flex-direction: column;
+    border-left: 1.5px solid map-get($colorPalette, whiteText);
+    margin-left: 10px;
+    padding-left: 10px;
+    a {
+      text-transform: uppercase;
+      color: map-get($colorPalette, whiteText);
+      text-decoration: none;
+      font-size: 13px;
+    }
+  }
+}
+
+// owl-carousel
+.item {
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: 50% 40%;
+  font-family: "Playfair Display", serif !important;
+  .item-caption {
+    position: absolute;
+    top: 36%;
+    left: 27%;
+    font-size: 40px;
+    color: map-get($colorPalette, whiteText) !important;
+    line-height: 1.5;
+    text-align: center;
+    letter-spacing: 2px;
+    .animated {
+      animation-duration: 1s;
+      animation-fill-mode: both;
+    }
+
+    .fadeInUp {
+      animation-name: fadeInUp;
+    }
+    h3 {
+      user-select: none;
+    }
+    button {
+      background: transparent;
+      padding: 12px 30px;
+      border: 1px solid map-get($colorPalette, whiteText);
+      color: map-get($colorPalette, whiteText);
+      cursor: pointer;
+      @include before-sweeping(transparent);
+      display: inline-block;
+      vertical-align: middle;
+      &:before {
+        content: "";
+        @include sweeping(map-get($colorPalette, whiteText));
+      }
+      &:hover {
+        color: map-get($colorPalette, dark);
+      }
+      &:hover:before {
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+      }
+    }
+  }
+}
+.item-1 {
+  background-image: url("../img/spa.jpg");
+}
+.item-2 {
+  background-image: url("../img/slide_n_2_o.jpg");
+}
+.item-3 {
+  background-image: url("../img/slider_n_1.jpg");
+}
+.owl-carousel .owl-nav.disabled {
+  display: block !important;
+}
+.prev-slide {
+  position: absolute;
+  left: 0px !important;
+  top: 45% !important;
+  color: map-get($colorPalette, whiteText);
+  background-color: map-get($colorPalette, blackTransparent);
+  font-size: 22px;
+  font-weight: 900;
+  width: 36px;
+  height: 50px;
+  clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 4px;
+  padding-right: 5px;
+}
+
+.next-slide {
+  position: absolute;
+  padding-bottom: 4px;
+  padding-right: 5px;
+  top: 45% !important;
+  right: 0 !important;
+  color: map-get($colorPalette, whiteText);
+  background-color: map-get($colorPalette, blackTransparent);
+  font-weight: 900;
+  width: 36px;
+  height: 50px;
+  font-size: 22px;
+  clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+  transform: rotate(180deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+// checkDate : input date : section style
+.checkDate {
+  background-color: map-get($colorPalette, blackSection);
+  height: 250px;
+  width: 980px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 5;
+  bottom: 60px;
+  .dates {
+    height: 200px;
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    label {
+      color: map-get($colorPalette, whiteText);
+      display: block;
+      font-size: 12px;
+      font-weight: 200;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      margin-top: 10px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+    input {
+      padding: 28px 10px;
+      font-size: 20px;
+      font-weight: 200;
+      box-shadow: none;
+      line-height: 1.5;
+      width: 100%;
+      text-align: center;
+      background-color: map-get($colorPalette, dateInput);
+      border: 1px solid map-get($colorPalette, dateInput) !important;
+      color: map-get($colorPalette, whiteText);
+      transition: border-color 0.15s ease-in-out 0s,
+        box-shadow 0.15s ease-in-out 0s;
+      &::placeholder {
+        color: map-get($colorPalette, whiteText) !important;
+      }
+    }
+  }
+  .requestBtn {
+    width: 100%;
+    position: absolute;
+    bottom: 20px;
+    text-align: center;
+    align-items: center;
+    button {
+      padding: 12px 32px;
+      font-size: 14px;
+      border: 1px map-get($colorPalette, requestBtn) solid;
+      color: map-get($colorPalette, requestBtn) !important;
+      text-transform: uppercase;
+      background-color: transparent;
+      font-weight: 400;
+      transition-duration: 0.3s;
+      @include before-sweeping(transparent);
+      display: inline-block;
+      &:before {
+        content: "";
+        @include sweeping(map-get($colorPalette, requestBtn));
+      }
+      &:hover {
+        color: map-get($colorPalette, whiteText) !important;
+      }
+      &:hover:before {
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+      }
+    }
+  }
+}
+// modal
+.modal {
+  display: none;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  width: 50%;
+  position: absolute;
+  transform: translate(50%, -50%);
+  z-index: 4000;
+  background-color: map-get($colorPalette, whiteText);
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px map-get($colorPalette, bgBlack);
+  .modalheader {
+    width: 100%;
+    height: 40px;
+    border-radius: 10px 10px 0px 0px;
+    background-color: map-get($colorPalette, whiteText);
+    a {
+      text-decoration: none;
+      display: flex;
+      justify-content: space-between;
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 40px;
+      margin: 0px 20px;
+      color: map-get($colorPalette, danger);
+    }
+  }
+  .modalContents {
+    width: 100%;
+    height: 250px;
+    table {
+      width: 100% !important;
+      background-color: map-get($colorPalette, whiteText);
+      color: map-get($colorPalette, bgBlack);
+      font-weight: 600;
+    }
+    table,
+    th,
+    td {
+      border: 1px solid map-get($colorPalette, success);
+    }
+    th,
+    td {
+      padding: 15px;
+      text-align: center;
+    }
+  }
+}
+
+// wrapper part
+
+.wrapper {
+  position: relative;
+  text-align: center;
+  margin-top: 100px;
+  .background_title {
+    text-transform: uppercase;
+    font-size: 150px;
+    position: absolute;
+    top: 24px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1 !important;
+    opacity: 0.07;
+    font-family: "Playfair Display", serif !important;
+  }
+  h2 {
+    font-family: "Playfair Display", serif !important;
+    font-weight: 700;
+    line-height: 1;
+    font-size: 30px;
+  }
+  span {
+    opacity: 0.8;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 3px;
+  }
+  .svg_divider {
+    margin: 20px 0px;
+    line-height: 0;
+  }
+  p {
+    width: 50%;
+    margin: 0 auto;
+    font-size: 20px;
+    opacity: 0.6;
+  }
+  img {
+    border-radius: 50%;
+    margin-top: 40px;
+  }
+  .richard {
+    font-size: 14px;
+    padding: 5px 0;
+  }
+}
+
+// cards style
+
+.cards {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 10vh;
+  .card {
+    height: 570px;
+    flex-basis: 30%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    @include before-sweeping(transparent);
+    &:before {
+      content: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore corrupti similique quam amet deleniti praesentium sapiente aperiam, aliquam maxime dolore obcaecati animi debitis laborum voluptatibus illo doloremque, quia, iste laudantium.";
+      @include sweeping(map-get($colorPalette, blackTransparent));
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 1rem;
+      text-align: center;
+      font-size: 18px;
+    }
+    &:hover {
+      color: white;
+      .textcontent {
+        display: none;
+      }
+    }
+    &:hover:before {
+      -webkit-transform: scaleY(1);
+      transform: scaleY(1);
+    }
+    img {
+      width: 35%;
+      padding-left: 20px;
+      padding-top: 20px;
+    }
+    .textcontent {
+      position: absolute;
+      bottom: 20px;
+      left: 10px;
+      padding: 0 30px;
+      animation: fadeInDown 0.4s;
+      color: map-get($colorPalette, whiteText);
+      font-weight: bold;
+      font-size: 30px;
+      text-transform: uppercase;
+      font-family: "Playfair Display", serif !important;
+    }
+  }
+  .content-1 {
+    background-image: url("../img/spa-banner.jpg");
+    position: relative;
+  }
+  .content-2 {
+    background-image: url("../img/gym-banner.jpg");
+  }
+  .content-3 {
+    background-image: url("../img/restaurant-banner.jpg");
+  }
+}
+
+// OFF ---------------------
+.offContent {
+  background-image: url("../img/home-banner-1.jpg");
+  width: 100%;
+  height: 60vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  overflow: hidden;
+  .offHeader {
+    margin-top: 10%;
+    h2 {
+      margin-bottom: 4px;
+      font-weight: 700;
+      line-height: 1.1;
+      text-transform: uppercase;
+      margin-top: 27px;
+      margin-bottom: 13.5px;
+      font-size: 40px;
+    }
+    p {
+      color: map-get($colorPalette, darkBtn);
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1.5;
+    }
+    .btnOff button {
+      background: transparent;
+      margin-top: 10px;
+      padding: 10px 10px;
+      border: 1px solid map-get($colorPalette, darkBtn);
+      @include before-sweeping(transparent);
+      &:before {
+        content: "";
+        @include sweeping(map-get($colorPalette, darkBtn));
+      }
+      &:hover {
+        color: map-get($colorPalette, whiteText);
+      }
+      &:hover:before {
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+      }
+    }
+  }
+}
+
+// secondCarousel with js------------------
+
+.secondCarousel {
+  background-color: map-get($colorPalette, blackSection);
+  padding: 2% 5%;
+  overflow: hidden;
+  .jsCarousel {
+    background-color: map-get($colorPalette, dark);
+    margin: 5% auto;
+    color: map-get($colorPalette, whiteText);
+    .slides {
+      display: flex;
+      flex-direction: row;
+      @include up-size(768) {
+        flex-direction: column-reverse;
+        .slider-content {
+          padding: 20px 10px;
+        }
+      }
+    }
+  }
+}
+
+.slider-content {
+  color: map-get($colorPalette, whiteText);
+  flex-basis: 50%;
+  h3 {
+    margin-top: 5%;
+    margin-left: 5%;
+    font-size: 2rem;
+  }
+  .sub {
+    margin-left: 5%;
+    font-size: 1rem;
+  }
+  .icons {
+    margin: 5% 5%;
+    i::before {
+      border: 1px solid map-get($colorPalette, carouselDot);
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      display: inline-block;
+      text-align: center;
+      line-height: 36px;
+    }
+  }
+  .description {
+    margin-left: 5%;
+    text-align: left;
+    line-height: 2;
+    margin-bottom: 5%;
+  }
+  a {
+    margin-left: 5%;
+    color: map-get($colorPalette, readMoreBtn);
+    padding-bottom: 5px;
+    &:hover {
+      border-bottom: 1px solid map-get($colorPalette, readMore);
+    }
+  }
+}
+.picSlider {
+  flex-basis: 50%;
+  .img {
+    width: 100%;
+    height: 100%;
+  }
+}
+.dotslider {
+  text-align: center;
+  .dot {
+    cursor: pointer;
+    height: 12px;
+    width: 12px;
+    margin: 0 2px;
+    background-color: map-get($colorPalette, whiteText);
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.5s ease;
+  }
+}
+
+.slides {
+  @include up-size(766) {
+    flex-direction: column-reverse;
+    .slider2-content {
+      padding: 20px 10px;
+    }
+  }
+}
+
+// testimonial ---------------------------------
+
+.testimonialContainer {
+  text-align: center;
+  margin-bottom: 140px;
+  overflow: hidden;
+  h3 {
+    font-size: 3rem;
+  }
+  .subtitle {
+    margin-bottom: 10px;
+  }
+  .svg_divider {
+    margin-top: 20px;
+  }
+  .slideshow-container {
+    width: 50vw;
+    height: 260px;
+    margin: 20px auto;
+  }
+}
+
+.myTestSlides {
+  margin: 0 auto;
+  align-items: center;
+  div {
+    flex-basis: 20%;
+    .rounded {
+      border-radius: 50%;
+      width: 100px;
+    }
+  }
+  .myTestSlidesText {
+    flex-basis: 80%;
+    .testimonials_list_text {
+      margin-left: 0;
+      text-align: left;
+      h4 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+      }
+      .testimonials_list_text_editor {
+        margin-bottom: 2%;
+        .sb-text-color {
+          line-height: 2;
+          margin-bottom: 4%;
+          font-size: 1rem;
+        }
+      }
+      .testimonial_author_role {
+        color: map-get($colorPalette, carouselDot);
+      }
+    }
+  }
+}
+
+.CarouselNav {
+  display: flex;
+  justify-content: center;
+  width: 250px;
+  height: 50px;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  z-index: 3;
+  transform: translate(-50%, 0);
+  li {
+    list-style: none;
+    z-index: 3;
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    margin-left: 5px;
+    display: relative;
+    border-radius: 50%;
+    background-color: map-get($colorPalette, carouselDot);
+    justify-self: center;
+    transform: scale(1);
+    box-shadow: 0 1px 5px 0 map-get($colorPalette, blackTransparent);
+    transition: all 0.2s;
+    &:hover {
+      transform: scale(1.3);
+      box-shadow: 0 1px 7px 0 map-get($colorPalette, blackTransparent);
+      transition: all 0.2s;
+    }
+  }
+}
+
+// footer --------------------------------------------------
+
+.footer {
+  margin-top: 10px;
+  background-color: map-get($colorPalette, footerbgColor);
+  color: map-get($colorPalette, whiteText);
+  width: 100%;
+  overflow: hidden;
+}
+.footer-top {
+  margin: 30px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  .footerIcons {
+    display: flex;
+    justify-content: space-between;
+    width: 44vw;
+    padding: 50px 0;
+    i::before {
+      border: 1px solid white;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      display: inline-block;
+      text-align: center;
+      line-height: 36px;
+    }
+    span {
+      padding-left: 7px;
+    }
+  }
+}
+
+.footer-bottom {
+  background-color: map-get($colorPalette, dark);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95vw;
+  margin: 0 auto;
+  ul {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    li {
+      margin: 0 2px;
+    }
+  }
+  img {
+    width: 120px;
+    height: 50px;
+    padding-left: 25px;
+  }
+}
+
+
+// -----------Bacl to top btn --------------------
+
+#backToTop {
+  display: inline-block;
+  background-color: map-get($colorPalette, blackTransparent);
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  transition: background-color 0.3s, opacity 0.5s, visibility 0.5s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+  transition: all .3s ease;
+  &::after {
+    content: "\f077";
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 50px;
+    color: #fff;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    background-color: map-get($colorPalette, blackTransparent);
+  }
+}
+#backToTop.show {
+  opacity: 1;
+  visibility: visible;
+}
